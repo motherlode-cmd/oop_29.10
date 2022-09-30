@@ -9,7 +9,7 @@ Field::Field(int height, int width):height(height), width(width)
     }
     for(int i =0; i < height; i++) {
         for(int j = 0; j < width; j++) {
-            cells[i][j] = Cell(new EventNone(), Position(i,j), i*j < 2);
+            cells[i][j] = Cell(new EventNone(), Position(i,j), i!=j+1);
         }
     }
     positionPlayer = Position(0,0);

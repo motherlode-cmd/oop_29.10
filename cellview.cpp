@@ -29,7 +29,7 @@ QTableWidgetItem *CellView::drowNewCell(const Cell & cell, const Position &playe
         color = QColor(1,1,1);
     }
     QTableWidgetItem * newInem = new QTableWidgetItem("-");
-    if(playerPosition.getX() == cell.getPosition().getX() && playerPosition.getY() == playerPosition.getY()) {
+    if(playerPosition.getX() == cell.getPosition().getX() && cell.getPosition().getY() == playerPosition.getY()) {
         newInem->setText("Here");
         color = QColor(230, 10, 155);
     }

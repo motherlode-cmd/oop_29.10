@@ -15,6 +15,7 @@ class CommandReader : public QMainWindow
 public:
     CommandReader(QWidget *parent = nullptr);
     ~CommandReader();
+    //void copyTable1(QTableView * table);
     //CommandReader(CommandReader & newCommandReder);
 
 private slots:
@@ -45,6 +46,6 @@ private slots:
 private:
     Ui::CommandReader *ui;
     //Mediator * mediator;
-    Controller controller;
+    Controller * controller;
 };
 #endif // COMMANDREADER_H

@@ -55,18 +55,9 @@ int Position::getX() const
     return x;
 }
 
-void Position::setX(int newX)
-{
-    x = newX;
-}
-
 int Position::getY() const
 {
     return y;
 }
 
-void Position::setY(int newY)
-{
-    y = newY;
-}
 //const доступ к игроку

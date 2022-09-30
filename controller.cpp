@@ -1,27 +1,24 @@
 #include "controller.h"
 
-
-
-void Controller::start(QTableWidget * table,int n,int m)
+void Controller::start(QTableWidget * table, int n, int m)
 {
     Position playerPosition(0,0);
-    fieldView.setSize(n, m, table);
+    field = Field(n,m);
     player = Player(playerPosition);
-    //field = fieldView.getField();
-    //field = Field(n,m);
-    //fieldView.setField(field);
+    //table = new QTableWidget();
+    fieldView = FieldView(field, table);
 }
 
-void Controller::makeMove(int x, int y)
+void Controller::makeMove(QTableWidget * table, int x, int y)
 {
-    //field.playerMove(x,y,player);
-    fieldView.playerMove(x,y,player);
+    field.playerMove(x, y, player);
+    fieldView.drowField(field, table);
 }
 
-void Controller::newEvent(Event *event, int x, int y)
+void Controller::newEvent(QTableWidget *table, Event *event, int x, int y)
 {
-    //field.setNewEvent(event, x, y);
-    fieldView.createNewEvent(event, x, y);
+    field.setNewEvent(event, x, y);
+    fieldView.drowField(field, table);
 }
 
 int Controller::getPlayerHealth()

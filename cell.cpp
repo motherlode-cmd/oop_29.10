@@ -1,9 +1,5 @@
 #include "cell.h"
 
-//Cell::Cell(Event *event, Position &position):event(event), position(position)
-//{
-
-//}
 Cell::Cell()
 {
     event = nullptr;
@@ -29,9 +25,7 @@ Cell &Cell::operator = (Cell const &other)
 }
 
 Cell::Cell(Event *event, const Position &position, bool isOpen): event(event), position(position), isOpen(isOpen)
-{
-
-}
+{}
 
 Cell &Cell::operator = (Cell &&other)
 {

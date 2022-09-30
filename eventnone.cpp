@@ -1,9 +1,7 @@
 #include "eventnone.h"
 
 EventNone::EventNone()
-{
-
-}
+{}
 
 void EventNone::makeAction(Player &player)
 {

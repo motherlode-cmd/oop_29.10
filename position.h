@@ -15,11 +15,7 @@ public:
     bool operator == (const Position & other);
     void setPosition(int x, int y);
     int getX() const;
-    void setX(int newX);
-
     int getY() const;
-    void setY(int newY);
-
 private:
     int x = -1;
     int y = -1;

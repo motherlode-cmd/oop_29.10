@@ -49,6 +49,8 @@ int Player::getHealth() const
 void Player::setHealth(int newHealth)
 {
     health = newHealth;
+    if(health > 100) health = 100;
+    if(health < 0) health = 0;
 }
 
 const Position &Player::getCurrentPosition() const
