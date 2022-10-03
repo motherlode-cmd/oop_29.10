@@ -1,24 +1,7 @@
 #include "cellview.h"
 
-CellView::CellView()
-{
-
-}
-
-CellView::CellView(const CellView &copyCellView)
-{
-    cell = copyCellView.cell;
-}
-
-CellView &CellView::operator =(const CellView &other)
-{
-    cell = other.cell;
-    return *this;
-}
-
 QTableWidgetItem *CellView::drowNewCell(const Cell & cell, const Position &playerPosition)
 {
-    this->cell = cell;
     QColor color = QColor(1,1,1);
     if(!cell.getEvent()->getNumOfType()) {
         color = QColor(255, 157, 209);
@@ -39,7 +22,6 @@ QTableWidgetItem *CellView::drowNewCell(const Cell & cell, const Position &playe
 
 void CellView::drowCell(QTableWidgetItem *item, const Cell &cell, const Position &playerPosition)
 {
-    this->cell = cell;
     QColor color = QColor(1,1,1);
     if(!cell.getEvent()->getNumOfType()) {
         color = QColor(255, 157, 209);
@@ -57,15 +39,5 @@ void CellView::drowCell(QTableWidgetItem *item, const Cell &cell, const Position
     item->setBackground(color);
 }
 
-CellView::CellView(CellView &&source)
-{
-    cell = source.cell;
-}
-
-CellView &CellView::operator =(CellView &&other)
-{
-    cell = other.cell;
-    return *this;
-}
 
 

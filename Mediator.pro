@@ -18,7 +18,6 @@ SOURCES += \
     fieldview.cpp \
     main.cpp \
     commandreader.cpp \
-    mediator.cpp \
     player.cpp \
     position.cpp
 
@@ -28,11 +27,11 @@ HEADERS += \
     commandreader.h \
     controller.h \
     event.h \
+    eventField.h \
     eventadd.h \
     eventnone.h \
     field.h \
     fieldview.h \
-    mediator.h \
     player.h \
     position.h
 

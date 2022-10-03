@@ -1,14 +1,8 @@
 #include "player.h"
 
-Player::Player(Position & position):currentPosition(position)
-{
-}
+Player::Player(Position & position):currentPosition(position), health(100){}
 
-Player::Player(Player const &newPlayer)
-{
-    currentPosition = newPlayer.currentPosition;
-    health = newPlayer.health;
-}
+Player::Player(Player const &newPlayer):currentPosition(newPlayer.currentPosition), health(newPlayer.health){}
 
 Player &Player::operator = (const Player &other)
 {
@@ -36,7 +30,7 @@ Player::Player(Player &&source):currentPosition(source.currentPosition), health(
     source.currentPosition = Position(-1,-1);
 }
 
-void Player::makeMove(Position & newPosition)
+void Player::makeMove(const Position & newPosition)
 {
     currentPosition = newPosition;
 }

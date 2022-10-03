@@ -3,6 +3,7 @@
 
 #include "fieldview.h"
 #include "player.h"
+
 class Controller
 {
 public:
@@ -13,11 +14,13 @@ public:
     int getPlayerHealth();
     QString currentState();
 
+    int getState() const;
+
 private:
     FieldView fieldView;
     Player player;
     Field field;
-//    QTableWidget * table = new QTableWidget;
+    int state = 1;
 };
 
 #endif // CONTROLLER_H

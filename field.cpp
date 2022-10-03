@@ -1,24 +1,44 @@
 #include "field.h"
 #include "eventnone.h"
+#include <iostream>
+//Field::Field()
+//{
+////    cells = new Cell *[height];
+////    for(int i = 0; i < height; i++) {
+////        cells[i] = new Cell [width];
+////    }
+////    for(int i = 0; i < height; i++) {
+////        for(int j = 0; j < width;  j++) {
+////            cells[i][j] = Cell(new EventNone(), Position(i,j), i!=j+1);
+////        }
+////    }
+
+//}
 
 Field::Field(int height, int width):height(height), width(width)
 {
+    int startX = 0;
+    int startY = 0;
     cells = new Cell *[height];
     for(int i = 0; i < height; i++) {
         cells[i] = new Cell [width];
     }
     for(int i =0; i < height; i++) {
         for(int j = 0; j < width; j++) {
-            cells[i][j] = Cell(new EventNone(), Position(i,j), i!=j+1);
+            cells[i][j] = Cell(new EventNone(), Position(i,j), i!=j);
+            if(cells[i][j].getIsOpen()){
+                startX = i;
+                startY = j;
+            }
         }
     }
-    positionPlayer = Position(0,0);
+    positionPlayer = Position(startX,startY);
+
 }
 
-Field::Field(Field const &newField)
+Field::Field(Field const &newField): positionPlayer(newField.positionPlayer),
+    height(newField.height), width(newField.width)
 {
-    height = newField.height;
-    width = newField.width;
     cells = new Cell *[height];
     for(int i = 0; i < height; i++) {
         cells[i] = new Cell [width];
@@ -28,7 +48,6 @@ Field::Field(Field const &newField)
             cells[i][j] = newField.cells[i][j];
         }
     }
-    positionPlayer = newField.positionPlayer;
 }
 
 Field &Field::operator = (const Field &other)
@@ -73,10 +92,6 @@ Field &Field::operator =(Field && other)
             }
         }
         positionPlayer = other.positionPlayer;
-        for(int i = 0; i < height; i++) {
-            delete [] other.cells[i];
-        }
-        delete other.cells;
     }
     return *this;
 }
@@ -93,10 +108,17 @@ Field::Field(Field &&source): positionPlayer(source.positionPlayer),
             cells[i][j] = source.cells[i][j];
         }
     }
+    source.height = 0;
+    source.width = 0;
+}
+
+Field::~Field()
+{
+    std::cout<<"delete ";
     for(int i = 0; i < height; i++) {
-        delete [] source.cells[i];
+        delete [] cells[i];
     }
-    delete source.cells;
+    delete cells;
 }
 
 void Field::setNewEvent(Event *event, int x, int y)
@@ -109,7 +131,6 @@ void Field::playerMove(int deltaX, int deltaY, Player &player)
     Position newPos(Position(abs(positionPlayer.getX(), deltaX, width), abs(positionPlayer.getY(), deltaY, height)));
     if(cells[newPos.getX()][newPos.getY()].getIsOpen()) {
         positionPlayer = newPos;
-        player.makeMove(newPos);
         cells[positionPlayer.getX()][positionPlayer.getY()].makeEvent(player);
     }
 }

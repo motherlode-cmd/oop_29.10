@@ -12,7 +12,7 @@ public:
     Player & operator = (const Player &other);
     Player & operator = (Player && other);
 
-    void makeMove(Position & newPosition);
+    void makeMove(const Position &newPosition);
     int getHealth() const;
     void setHealth(int newHealth);
 

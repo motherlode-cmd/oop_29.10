@@ -16,7 +16,10 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    CommandReader w;
-    w.show();
+    Controller c;
+   // while(c.getState() == 1){
+        CommandReader w(&c);
+        w.show();
+   // }
     return a.exec();
 }

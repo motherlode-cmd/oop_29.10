@@ -1,5 +1,4 @@
 #include "fieldview.h"
-
 FieldView::FieldView(const Field & field, QTableWidget * table)
 {
     this->field = field;
@@ -14,16 +13,12 @@ FieldView::FieldView(const Field & field, QTableWidget * table)
     }
 }
 
-FieldView::FieldView(const FieldView &newFieldView)
-{
-    field = newFieldView.field;
-    cellView = newFieldView.cellView;
-}
+FieldView::FieldView(const FieldView &newFieldView):field(newFieldView.field), cellView(newFieldView.cellView)
+{}
 
-FieldView::FieldView(FieldView &&newFieldView)
+FieldView::FieldView(FieldView &&newFieldView):field(newFieldView.field), cellView(newFieldView.cellView)
 {
-    field = newFieldView.field;
-    cellView = newFieldView.cellView;
+    newFieldView.field = Field(0,0);
 }
 
 FieldView &FieldView::operator = (const FieldView &other)
@@ -40,13 +35,13 @@ FieldView &FieldView::operator = (FieldView &&other)
     if(this != &other) {
         field = other.field;
         cellView = other.cellView;
+        other.field = Field(0,0);
     }
     return *this;
 }
 
 FieldView::~FieldView()
-{
-}
+{}
 
 void FieldView::drowField(Field &field, QTableWidget *table)
 {

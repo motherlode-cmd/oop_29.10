@@ -2,15 +2,15 @@
 #include "eventadd.h"
 #include "mediator.h"
 #include "ui_commandreader.h"
-CommandReader::CommandReader(QWidget *parent)
+CommandReader::CommandReader(Controller * controller, QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::CommandReader)
+    , ui(new Ui::CommandReader), controller(controller)
 {
     ui->setupUi(this);
     Mediator * mediator = new Mediator();
     delete mediator;
     ui->comboBox->hide();
-    controller = new Controller();
+    this->controller = controller;
 }
 
 CommandReader::~CommandReader()
@@ -27,14 +27,15 @@ void CommandReader::on_pushButton_clicked()
 
 void CommandReader::move()
 {
-    controller->makeMove(ui->tableWidget, 1, 1);
-    ui->pushButton->setText(controller->currentState());
-    ui->progressBar->setValue(controller->getPlayerHealth());
+    //controller->makeMove(ui->tableWidget, 1, 1);
+//    ui->pushButton->setText(controller->currentState());
+//    ui->progressBar->setValue(controller->getPlayerHealth());
 }
 
 
 void CommandReader::on_move1_clicked()
 {
+    //controller->start(ui->tableWidget, 3, 3);
     controller->makeMove(ui->tableWidget, 1, 1);
     ui->pushButton->setText(controller->currentState());
     ui->progressBar->setValue(controller->getPlayerHealth());
@@ -98,7 +99,6 @@ void CommandReader::on_CellEvent_clicked()
 
 void CommandReader::createNewEventCell(int x, int y)
 {
-    //if(ui->comboBox->textActivated("+"))
     controller->newEvent(ui->tableWidget, new EventAdd(), x, y);
     disconnect(ui->tableWidget, SIGNAL(cellClicked(int,int)), this, SLOT(createNewEventCell(int,int)));
     ui->CellEvent->show();

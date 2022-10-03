@@ -16,7 +16,7 @@ public:
     void drowField(Field & field, QTableWidget * table);
 
 private:
-    Field field = Field(0,0);
+    Field field;
     CellView cellView;
 };
 

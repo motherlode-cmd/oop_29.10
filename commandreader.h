@@ -1,7 +1,6 @@
 #ifndef COMMANDREADER_H
 #define COMMANDREADER_H
 #include "controller.h"
-//#include "mediator.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -13,10 +12,8 @@ class CommandReader : public QMainWindow
     Q_OBJECT
 
 public:
-    CommandReader(QWidget *parent = nullptr);
+    CommandReader(Controller * controller = nullptr, QWidget *parent = nullptr);
     ~CommandReader();
-    //void copyTable1(QTableView * table);
-    //CommandReader(CommandReader & newCommandReder);
 
 private slots:
     void on_pushButton_clicked();
@@ -45,7 +42,6 @@ private slots:
 
 private:
     Ui::CommandReader *ui;
-    //Mediator * mediator;
     Controller * controller;
 };
 #endif // COMMANDREADER_H

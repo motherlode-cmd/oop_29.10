@@ -6,12 +6,13 @@
 class Field
 {
 public:
-    Field() = default;
-    Field(int heiht, int width);
+    //Field();
+    Field(int heiht = 3, int width = 3);
     Field(Field const & newField);
     Field & operator = (Field const &other);
     Field & operator = (Field && other);
     Field(Field && source);
+    ~Field();
     void setNewEvent(Event *event, int x, int y);
     void playerMove(int deltaX, int deltaY, Player & player);
     const Cell & getCell(int i, int j) const;
@@ -22,9 +23,9 @@ public:
 
 protected:
     Cell ** cells = nullptr;
-    Position positionPlayer = Position(-1,-1);
-    int height = 0;
-    int width = 0;
+    Position positionPlayer = Position(0,0);
+    int height = 3;
+    int width = 3;
 private:
     int abs(int x, int deltaX, int metric);
 };

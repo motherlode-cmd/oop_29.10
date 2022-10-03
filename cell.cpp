@@ -7,12 +7,8 @@ Cell::Cell()
     isOpen = true;
 }
 
-Cell::Cell(Cell const &copyCell)
-{
-    event = copyCell.event;
-    position = copyCell.position;
-    isOpen = copyCell.isOpen;
-}
+Cell::Cell(Cell const &copyCell):event(copyCell.event), position(copyCell.position), isOpen(copyCell.isOpen)
+{}
 
 Cell &Cell::operator = (Cell const &other)
 {
@@ -50,6 +46,7 @@ void Cell::makeEvent(Player &player)
 
 void Cell::setEvent(Event *newEvent)
 {
+    delete this->event;
     event = newEvent;
 }
 
