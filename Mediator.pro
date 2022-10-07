@@ -13,7 +13,10 @@ SOURCES += \
     cellview.cpp \
     controller.cpp \
     eventadd.cpp \
+    eventlock.cpp \
     eventnone.cpp \
+    eventunlock.cpp \
+    eventwin.cpp \
     field.cpp \
     fieldview.cpp \
     main.cpp \
@@ -28,8 +31,12 @@ HEADERS += \
     controller.h \
     event.h \
     eventField.h \
+    eventPlayer.h \
     eventadd.h \
+    eventlock.h \
     eventnone.h \
+    eventunlock.h \
+    eventwin.h \
     field.h \
     fieldview.h \
     player.h \

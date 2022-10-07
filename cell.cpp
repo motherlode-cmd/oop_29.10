@@ -1,4 +1,5 @@
 #include "cell.h"
+#include <iostream>
 
 Cell::Cell()
 {
@@ -17,11 +18,18 @@ Cell &Cell::operator = (Cell const &other)
         event = other.event;
         isOpen = other.isOpen;
     }
+    //std::cout<<"copyCell\n";
     return *this;
 }
 
 Cell::Cell(Event *event, const Position &position, bool isOpen): event(event), position(position), isOpen(isOpen)
 {}
+
+Cell::~Cell()
+{
+    //std::cout<<"delete Cell\n";
+    //delete event;
+}
 
 Cell &Cell::operator = (Cell &&other)
 {
@@ -31,6 +39,7 @@ Cell &Cell::operator = (Cell &&other)
         isOpen = other.isOpen;
         other.event = nullptr;
     }
+    //std::cout<<"moveCell\n";
     return *this;
 }
 
@@ -39,14 +48,9 @@ Cell::Cell(Cell &&source): event(source.event), position(source.position), isOpe
     source.event = nullptr;
 }
 
-void Cell::makeEvent(Player &player)
-{
-    event->makeAction(player);
-}
-
 void Cell::setEvent(Event *newEvent)
 {
-    delete this->event;
+    //delete this->event;
     event = newEvent;
 }
 

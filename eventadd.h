@@ -1,9 +1,8 @@
 #ifndef EVENTADD_H
 #define EVENTADD_H
+#include "eventPlayer.h"
 
-#include "event.h"
-
-class EventAdd : public Event
+class EventAdd : public EventPlayer
 {
 public:
     EventAdd();

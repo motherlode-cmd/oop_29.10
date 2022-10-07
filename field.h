@@ -6,7 +6,6 @@
 class Field
 {
 public:
-    //Field();
     Field(int heiht = 3, int width = 3);
     Field(Field const & newField);
     Field & operator = (Field const &other);
@@ -19,7 +18,9 @@ public:
     int getHeight() const;
     int getWidth() const;
     const Position &getPositionPlayer() const;
-
+    friend void newField(Field & field);
+    void setCell(int x, int y,const Cell & cell);
+private:
 
 protected:
     Cell ** cells = nullptr;

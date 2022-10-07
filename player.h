@@ -15,7 +15,6 @@ public:
     void makeMove(const Position &newPosition);
     int getHealth() const;
     void setHealth(int newHealth);
-
     const Position &getCurrentPosition() const;
 private:
     Position currentPosition;

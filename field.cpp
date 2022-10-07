@@ -1,19 +1,8 @@
 #include "field.h"
+#include "eventField.h"
 #include "eventnone.h"
-#include <iostream>
-//Field::Field()
-//{
-////    cells = new Cell *[height];
-////    for(int i = 0; i < height; i++) {
-////        cells[i] = new Cell [width];
-////    }
-////    for(int i = 0; i < height; i++) {
-////        for(int j = 0; j < width;  j++) {
-////            cells[i][j] = Cell(new EventNone(), Position(i,j), i!=j+1);
-////        }
-////    }
 
-//}
+#include <iostream>
 
 Field::Field(int height, int width):height(height), width(width)
 {
@@ -25,7 +14,7 @@ Field::Field(int height, int width):height(height), width(width)
     }
     for(int i =0; i < height; i++) {
         for(int j = 0; j < width; j++) {
-            cells[i][j] = Cell(new EventNone(), Position(i,j), i!=j);
+            cells[i][j] = Cell(new EventNone(), Position(i,j), i != j + 1);
             if(cells[i][j].getIsOpen()){
                 startX = i;
                 startY = j;
@@ -33,12 +22,13 @@ Field::Field(int height, int width):height(height), width(width)
         }
     }
     positionPlayer = Position(startX,startY);
-
 }
 
 Field::Field(Field const &newField): positionPlayer(newField.positionPlayer),
     height(newField.height), width(newField.width)
 {
+    height = newField.height;
+    width = newField.width;
     cells = new Cell *[height];
     for(int i = 0; i < height; i++) {
         cells[i] = new Cell [width];
@@ -73,7 +63,7 @@ Field &Field::operator = (const Field &other)
     return *this;
 }
 
-Field &Field::operator =(Field && other)
+Field &Field::operator = (Field && other)
 {
     if(this != &other) {
         for(int i = 0; i < height; i++) {
@@ -97,7 +87,7 @@ Field &Field::operator =(Field && other)
 }
 
 Field::Field(Field &&source): positionPlayer(source.positionPlayer),
-    height(source.height), width(source.width)
+   height(source.height), width(source.width)
 {
     cells = new Cell *[height];
     for(int i = 0; i < height; i++) {
@@ -123,7 +113,10 @@ Field::~Field()
 
 void Field::setNewEvent(Event *event, int x, int y)
 {
-    cells[x][y].setEvent(event);
+    if(x >= 0 && y >= 0 && x < width && y < height)
+        cells[x][y].setEvent(event);
+    else
+        std::cout<<"wron k\n";
 }
 
 void Field::playerMove(int deltaX, int deltaY, Player &player)
@@ -131,7 +124,10 @@ void Field::playerMove(int deltaX, int deltaY, Player &player)
     Position newPos(Position(abs(positionPlayer.getX(), deltaX, width), abs(positionPlayer.getY(), deltaY, height)));
     if(cells[newPos.getX()][newPos.getY()].getIsOpen()) {
         positionPlayer = newPos;
-        cells[positionPlayer.getX()][positionPlayer.getY()].makeEvent(player);
+        if(cells[newPos.getX()][newPos.getY()].getEvent()->getNumOfType() == 3)
+            ((EventField *)cells[newPos.getX()][newPos.getY()].getEvent())->newField(*this);
+        else
+            ((EventPlayer *)cells[positionPlayer.getX()][positionPlayer.getY()].getEvent())->makeAction(player);
     }
 }
 
@@ -148,6 +144,13 @@ int Field::getHeight() const
 int Field::getWidth() const
 {
     return width;
+}
+
+void Field::setCell(int x, int y, const Cell &cell)
+{
+    if(x < width && x >= 0 && y >= 0 && y < height) {
+        cells[x][y] = cell;
+    }
 }
 
 const Position &Field::getPositionPlayer() const

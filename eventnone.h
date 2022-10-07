@@ -1,8 +1,8 @@
 #ifndef EVENTNONE_H
 #define EVENTNONE_H
-#include "event.h"
+#include "eventPlayer.h"
 
-class EventNone : public Event
+class EventNone : public EventPlayer
 {
 public:
     EventNone();

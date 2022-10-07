@@ -1,6 +1,7 @@
 #ifndef CELL_H
 #define CELL_H
 #include "event.h"
+#include "position.h"
 
 class Cell
 {
@@ -10,11 +11,10 @@ public:
     Cell & operator = (Cell const & other);
     Cell(Cell && source);
     Cell & operator = (Cell && other);
-    Cell(Event * event, const Position &position, bool isOpen);
-    void makeEvent(Player & player);
+    Cell(Event * event, const Position & position, bool isOpen);
+    ~Cell();
     void setEvent(Event *newEvent);
     const Position &getPosition() const;
-
     bool getIsOpen() const;
 
     Event *getEvent() const;

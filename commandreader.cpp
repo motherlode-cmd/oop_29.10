@@ -1,7 +1,10 @@
 #include "commandreader.h"
 #include "eventadd.h"
+#include "eventunlock.h"
 #include "mediator.h"
 #include "ui_commandreader.h"
+#include "QStandardItem"
+#include "QFile"
 CommandReader::CommandReader(Controller * controller, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::CommandReader), controller(controller)
@@ -11,6 +14,8 @@ CommandReader::CommandReader(Controller * controller, QWidget *parent)
     delete mediator;
     ui->comboBox->hide();
     this->controller = controller;
+    ui->lineEdit->hide();
+    ui->label->hide();
 }
 
 CommandReader::~CommandReader()
@@ -85,6 +90,11 @@ void CommandReader::on_progressBar_valueChanged(int value)
         ui->tableWidget->hide();
         delete ui->tableWidget;
         ui->pushButton->setText("over");
+        ui->lineEdit->setText("SUCK MY DICK FUCKINg LOSER, LIKE YOUR SWEET MOM");
+        const QPixmap pixmap("penis.png");
+        ui->label->setPixmap(pixmap);
+        ui->label->show();
+        ui->lineEdit->show();
     }
 }
 
@@ -99,7 +109,7 @@ void CommandReader::on_CellEvent_clicked()
 
 void CommandReader::createNewEventCell(int x, int y)
 {
-    controller->newEvent(ui->tableWidget, new EventAdd(), x, y);
+    controller->newEvent(ui->tableWidget, /*new EventAdd()*/new EventUnlock(), x, y);
     disconnect(ui->tableWidget, SIGNAL(cellClicked(int,int)), this, SLOT(createNewEventCell(int,int)));
     ui->CellEvent->show();
 }
