@@ -20,7 +20,7 @@ public:
     Event *getEvent() const;
 
 private:
-    Event * event;
+    Event * event = nullptr;
     Position position;
     bool isOpen = true;
 };

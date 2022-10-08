@@ -5,8 +5,8 @@
 class EventLock : public EventField
 {
 public:
-    EventLock();
-    int getNumOfType() override {return 3;}
+    EventLock(){std::cout<<"createLock\n";}
+    ~EventLock(){std::cout<<"deleteLock\n";}
     void newField(Field & field) override;
 };
 

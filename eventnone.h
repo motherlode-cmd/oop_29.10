@@ -5,9 +5,9 @@
 class EventNone : public EventPlayer
 {
 public:
-    EventNone();
+    EventNone(){std::cout<<"createNone\n";}
+    ~EventNone(){std::cout<<"deleteNone\n";}
     void makeAction(Player & player) override;
-    int getNumOfType() override {return 0;}
 };
 
 #endif // EVENTNONE_H

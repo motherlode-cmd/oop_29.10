@@ -5,9 +5,9 @@
 class EventAdd : public EventPlayer
 {
 public:
-    EventAdd();
+    EventAdd(){std::cout<<"createAdd\n";}
+    ~EventAdd(){std::cout<<"deleteAdd\n";}
     void makeAction(Player & player) override;
-    int getNumOfType() override {return 1;}
 };
 
 #endif // EVENTADD_H

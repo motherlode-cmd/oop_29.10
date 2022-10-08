@@ -18,7 +18,6 @@ Cell &Cell::operator = (Cell const &other)
         event = other.event;
         isOpen = other.isOpen;
     }
-    //std::cout<<"copyCell\n";
     return *this;
 }
 
@@ -27,8 +26,7 @@ Cell::Cell(Event *event, const Position &position, bool isOpen): event(event), p
 
 Cell::~Cell()
 {
-    //std::cout<<"delete Cell\n";
-    //delete event;
+    event = nullptr;
 }
 
 Cell &Cell::operator = (Cell &&other)
@@ -37,20 +35,17 @@ Cell &Cell::operator = (Cell &&other)
         position = other.position;
         event = other.event;
         isOpen = other.isOpen;
-        other.event = nullptr;
     }
-    //std::cout<<"moveCell\n";
     return *this;
 }
 
 Cell::Cell(Cell &&source): event(source.event), position(source.position), isOpen(source.isOpen)
 {
-    source.event = nullptr;
 }
 
 void Cell::setEvent(Event *newEvent)
 {
-    //delete this->event;
+    event = nullptr;
     event = newEvent;
 }
 

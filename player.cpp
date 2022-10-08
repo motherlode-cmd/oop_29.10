@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(Position & position):currentPosition(position), health(100){}
+Player::Player(const Position & position):currentPosition(position), health(100){}
 
 Player::Player(Player const &newPlayer):currentPosition(newPlayer.currentPosition), health(newPlayer.health){}
 

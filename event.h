@@ -1,7 +1,8 @@
 #ifndef EVENT_H
 #define EVENT_H
+#include <iostream>
 class Event{
 public:
-    virtual int getNumOfType() = 0;
+    virtual ~Event(){std::cout<<"eventDeleted ";}
 };
 #endif // EVENT_H

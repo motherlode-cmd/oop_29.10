@@ -1,11 +1,10 @@
 #include "field.h"
-#include "eventField.h"
-#include "eventnone.h"
-
+#include <cstdlib>
 #include <iostream>
 
 Field::Field(int height, int width):height(height), width(width)
 {
+    Event * eventDefault = nullptr;
     int startX = 0;
     int startY = 0;
     cells = new Cell *[height];
@@ -14,7 +13,7 @@ Field::Field(int height, int width):height(height), width(width)
     }
     for(int i =0; i < height; i++) {
         for(int j = 0; j < width; j++) {
-            cells[i][j] = Cell(new EventNone(), Position(i,j), i != j + 1);
+            cells[i][j] = Cell(eventDefault, Position(i,j), rand() % 4 != 0);
             if(cells[i][j].getIsOpen()){
                 startX = i;
                 startY = j;
@@ -104,7 +103,6 @@ Field::Field(Field &&source): positionPlayer(source.positionPlayer),
 
 Field::~Field()
 {
-    std::cout<<"delete ";
     for(int i = 0; i < height; i++) {
         delete [] cells[i];
     }
@@ -119,15 +117,11 @@ void Field::setNewEvent(Event *event, int x, int y)
         std::cout<<"wron k\n";
 }
 
-void Field::playerMove(int deltaX, int deltaY, Player &player)
+void Field::playerMove(int deltaX, int deltaY)
 {
     Position newPos(Position(abs(positionPlayer.getX(), deltaX, width), abs(positionPlayer.getY(), deltaY, height)));
     if(cells[newPos.getX()][newPos.getY()].getIsOpen()) {
         positionPlayer = newPos;
-        if(cells[newPos.getX()][newPos.getY()].getEvent()->getNumOfType() == 3)
-            ((EventField *)cells[newPos.getX()][newPos.getY()].getEvent())->newField(*this);
-        else
-            ((EventPlayer *)cells[positionPlayer.getX()][positionPlayer.getY()].getEvent())->makeAction(player);
     }
 }
 
@@ -151,6 +145,16 @@ void Field::setCell(int x, int y, const Cell &cell)
     if(x < width && x >= 0 && y >= 0 && y < height) {
         cells[x][y] = cell;
     }
+}
+
+Event *Field::getCurrentEvent()
+{
+    return cells[positionPlayer.getX()][positionPlayer.getY()].getEvent();
+}
+
+Event *Field::getEvent(int i, int j)
+{
+    return cells[i][j].getEvent();
 }
 
 const Position &Field::getPositionPlayer() const

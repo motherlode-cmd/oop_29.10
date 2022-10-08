@@ -6,7 +6,7 @@ class Player
 {
 public:
     Player() = default;
-    Player(Position & position);
+    Player(const Position &position);
     Player(Player const & newPlayer);
     Player(Player && source);
     Player & operator = (const Player &other);

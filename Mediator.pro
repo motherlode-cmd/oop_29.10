@@ -19,6 +19,7 @@ SOURCES += \
     eventwin.cpp \
     field.cpp \
     fieldview.cpp \
+    generatelevel.cpp \
     main.cpp \
     commandreader.cpp \
     player.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     eventwin.h \
     field.h \
     fieldview.h \
+    generatelevel.h \
     player.h \
     position.h
 

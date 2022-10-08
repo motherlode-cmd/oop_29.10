@@ -1,7 +1,6 @@
 #ifndef FIELD_H
 #define FIELD_H
 #include "cell.h"
-#include "player.h"
 //#include "position.h"
 class Field
 {
@@ -13,13 +12,15 @@ public:
     Field(Field && source);
     ~Field();
     void setNewEvent(Event *event, int x, int y);
-    void playerMove(int deltaX, int deltaY, Player & player);
+    void playerMove(int deltaX, int deltaY);
     const Cell & getCell(int i, int j) const;
     int getHeight() const;
     int getWidth() const;
     const Position &getPositionPlayer() const;
     friend void newField(Field & field);
     void setCell(int x, int y,const Cell & cell);
+    Event * getCurrentEvent();
+    Event * getEvent(int i, int j);
 private:
 
 protected:

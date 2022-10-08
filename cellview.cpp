@@ -1,42 +1,72 @@
 #include "cellview.h"
+#include "eventadd.h"
+#include "eventlock.h"
+#include "eventnone.h"
+#include "eventunlock.h"
+#include "eventwin.h"
 
 QTableWidgetItem *CellView::drowNewCell(const Cell & cell, const Position &playerPosition)
 {
-    QColor color = QColor(1,1,1);
-    if(!cell.getEvent()->getNumOfType()) {
-        color = QColor(255, 157, 209);
-    } else if(cell.getEvent()->getNumOfType()){
-        color = QColor(119, 255, 98);
-    }
-    if(!cell.getIsOpen()) {
-        color = QColor(1,1,1);
-    }
-    QTableWidgetItem * newInem = new QTableWidgetItem("-");
+    QTableWidgetItem * item = new QTableWidgetItem("-");
+    setItem(getType(cell.getEvent()),cell.getIsOpen(), item);
     if(playerPosition.getX() == cell.getPosition().getX() && cell.getPosition().getY() == playerPosition.getY()) {
-        newInem->setText("Here");
-        color = QColor(230, 10, 155);
+        item->setText("Here");
+        item->setBackground(QColor(230, 10, 155));
     }
-    newInem->setBackground(color);
-    return newInem;
+    return item;
 }
 
 void CellView::drowCell(QTableWidgetItem *item, const Cell &cell, const Position &playerPosition)
 {
-    QColor color = QColor(1,1,1);
-    if(!cell.getEvent()->getNumOfType()) {
-        color = QColor(255, 157, 209);
-    } else if(cell.getEvent()->getNumOfType()){
-        color = QColor(119, 255, 98);
-    }
-    if(!cell.getIsOpen()) {
-        color = QColor(1,1,1);
-    }
-    item->setText("-");
+    setItem(getType(cell.getEvent()), cell.getIsOpen(), item);
     if(playerPosition.getX() == cell.getPosition().getX() && playerPosition.getY() == cell.getPosition().getY()) {
         item->setText("Here");
-        color = QColor(230, 10, 155);
+        item->setBackground(QColor(230, 10, 155));
+    }
+}
+
+void *CellView::setItem(int numType, bool isOpen, QTableWidgetItem *item)
+{
+    QColor color = QColor(1,1,1);
+    switch (numType) {
+    case 0:
+        color = QColor(255, 157, 209);
+        item->setText("-10 HP");
+        break;
+    case 1:
+        color = QColor(0, 255, 0);
+        item->setText("+10 HP");
+        break;
+    case 3:
+        color = QColor(255, 0, 0);
+        item->setText("lock");
+        break;
+    case 4:
+        color = QColor(0, 0, 255);
+        item->setText("unlock");
+        break;
+    case 10:
+        color = QColor(0, 150, 150);
+        item->setText("winner");
+        break;
+    default:
+        color = QColor(255,255,255);
+        break;
+    }
+    if(!isOpen) {
+        color = QColor(1,1,1);
     }
     item->setBackground(color);
+}
+
+int CellView::getType(Event *event)
+{
+    if(event == dynamic_cast<EventNone *>(event)) return 0;
+    if(event == dynamic_cast<EventAdd *>(event)) return 1;
+    if(event == dynamic_cast<EventLock *>(event)) return 3;
+    if(event == dynamic_cast<EventUnlock *>(event)) return 4;
+    if(event == dynamic_cast<EventWin *>(event)) return 10;
+    return -1;
 }
 
 

@@ -1,34 +1,24 @@
 #include "controller.h"
-#include "eventlock.h"
-#include "eventunlock.h"
-#include "eventwin.h"
-
+#include "eventField.h"
+#include "eventPlayer.h"
+#include "generatelevel.h"
 void Controller::start(QTableWidget * table, int n, int m)
 {
-    Position playerPosition(0,0);
-    field = Field(n,m);
-    player = Player(playerPosition);
-    field.setNewEvent(new EventUnlock(), 1, 1);
-    field.setNewEvent(new EventLock(), 0, 1);
-    field.setNewEvent(new EventWin(), 2, 2);
-    fieldView = FieldView(field, table);
     state = 1;
+    field = Field(n + level,m + level);
+    player = Player(field.getPositionPlayer());
+    nextLevel(table);
 }
 
 void Controller::makeMove(QTableWidget * table, int x, int y)
 {
-    field.playerMove(x, y, player);
+    field.playerMove(x, y);
     player.makeMove(field.getPositionPlayer());
-    if(field.getWidth() == table->columnCount() && field.getHeight() == table->rowCount())
-        fieldView.drowField(field, table);
+    if(field.getCurrentEvent() == dynamic_cast<EventField *>(field.getCurrentEvent()))
+        ((EventField *)field.getCurrentEvent())->newField(field);
     else
-        fieldView = FieldView(field, table);
-    if(player.getHealth() == 0){ state = 0;}
-}
-
-void Controller::newEvent(QTableWidget *table, Event *event, int x, int y)
-{
-    field.setNewEvent(event, x, y);
+       ((EventPlayer *)field.getCurrentEvent())->makeAction(player);
+    checkState(table);
     fieldView.drowField(field, table);
 }
 
@@ -46,4 +36,30 @@ int Controller::getState() const
 {
     return state;
 }
+
+void Controller::exit(QTableWidget *table)
+{
+    field = Field(0,0);
+    fieldView = FieldView(field, table);
+}
+
+void Controller::checkState(QTableWidget *table)
+{
+    if(field.getHeight() == 0 && field.getWidth() == 0) {
+        exit(table);
+        state = 2;
+        level++;
+    }
+    if(player.getHealth() == 0){
+        state = 0;
+        level = 0;
+    }
+}
+
+void Controller::nextLevel(QTableWidget * table)
+{
+    generateLevel.generateLevel(field);
+    fieldView = FieldView(field, table);
+}
+
 

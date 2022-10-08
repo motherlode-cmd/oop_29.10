@@ -1,6 +1,7 @@
 #ifndef COMMANDREADER_H
 #define COMMANDREADER_H
 #include "controller.h"
+#include "qbuttongroup.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -14,13 +15,13 @@ class CommandReader : public QMainWindow
 public:
     CommandReader(Controller * controller = nullptr, QWidget *parent = nullptr);
     ~CommandReader();
+signals:
+    void signal();
 
 private slots:
     void on_pushButton_clicked();
 
-    void move();
-
-    void on_move1_clicked();
+    void state();
 
     void on_up_clicked();
 
@@ -32,15 +33,9 @@ private slots:
 
     void on_tableWidget_itemSelectionChanged();
 
-    void on_progressBar_valueChanged(int value);
-
-    void on_CellEvent_clicked();
-
-    void createNewEventCell(int x, int y);
-
-    void on_pushButton_2_clicked();
-
 private:
+    void setup_visual();
+    void setup_game();
     Ui::CommandReader *ui;
     Controller * controller;
 };

@@ -27,19 +27,6 @@
      <string>Старт</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="move1">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>80</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>+1</string>
-    </property>
-   </widget>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
@@ -115,19 +102,6 @@
      <number>24</number>
     </property>
    </widget>
-   <widget class="QPushButton" name="CellEvent">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>40</y>
-      <width>121</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Изменить клетку</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
@@ -138,7 +112,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Играть</string>
+     <string>Level : </string>
     </property>
    </widget>
    <widget class="QComboBox" name="comboBox">

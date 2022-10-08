@@ -4,8 +4,8 @@
 class EventWin : public EventField
 {
 public:
-    EventWin();
-    int getNumOfType() override {return 3;}
+    EventWin(){std::cout<<"createWin\n";}
+    ~EventWin(){std::cout<<"deleteWin\n";}
     void newField(Field & field) override;
 };
 

@@ -1,10 +1,11 @@
 #include "commandreader.h"
-#include "eventadd.h"
 #include "eventunlock.h"
 #include "mediator.h"
 #include "ui_commandreader.h"
 #include "QStandardItem"
 #include "QFile"
+#include "QList"
+#include <QButtonGroup>
 CommandReader::CommandReader(Controller * controller, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::CommandReader), controller(controller)
@@ -12,10 +13,9 @@ CommandReader::CommandReader(Controller * controller, QWidget *parent)
     ui->setupUi(this);
     Mediator * mediator = new Mediator();
     delete mediator;
-    ui->comboBox->hide();
     this->controller = controller;
-    ui->lineEdit->hide();
-    ui->label->hide();
+    setup_visual();
+    connect(this, SIGNAL(signal()), this, SLOT(state()));
 }
 
 CommandReader::~CommandReader()
@@ -25,98 +25,77 @@ CommandReader::~CommandReader()
 
 void CommandReader::on_pushButton_clicked()
 {
-    ui->pushButton->setEnabled(false);
+    setup_visual();
     controller->start(ui->tableWidget, 5, 5);
+    ui->tableWidget->show();
     ui->progressBar->setValue(controller->getPlayerHealth());
-}
-
-void CommandReader::move()
-{
-    //controller->makeMove(ui->tableWidget, 1, 1);
-//    ui->pushButton->setText(controller->currentState());
-//    ui->progressBar->setValue(controller->getPlayerHealth());
-}
-
-
-void CommandReader::on_move1_clicked()
-{
-    //controller->start(ui->tableWidget, 3, 3);
-    controller->makeMove(ui->tableWidget, 1, 1);
     ui->pushButton->setText(controller->currentState());
-    ui->progressBar->setValue(controller->getPlayerHealth());
 }
 
-
+void CommandReader::state()
+{
+    QPixmap pixmap;
+    switch(controller->getState()){
+    case 2:
+        pixmap = QPixmap("win.png");
+        ui->lineEdit->setText("you win");
+        break;
+    case 0:
+        pixmap = QPixmap("lose.png");
+        ui->lineEdit->setText("you lose");
+        break;
+    default:
+        return;
+    }
+    ui->tableWidget->hide();
+    ui->label->setPixmap(pixmap.scaled(500,500));
+    ui->label->show();
+    ui->lineEdit->show();
+    ui->pushButton->setText("start new level");
+    ui->pushButton->setEnabled(true);
+}
 void CommandReader::on_up_clicked()
 {
     controller->makeMove(ui->tableWidget, -1 ,0);
-    ui->pushButton->setText(controller->currentState());
-    ui->progressBar->setValue(controller->getPlayerHealth());
+    setup_game();
 }
-
 
 void CommandReader::on_down_clicked()
 {
     controller->makeMove(ui->tableWidget, 1, 0);
-    ui->pushButton->setText(controller->currentState());
-    ui->progressBar->setValue(controller->getPlayerHealth());
+    setup_game();
 }
 
 
 void CommandReader::on_left_clicked()
 {
     controller->makeMove(ui->tableWidget, 0, 1);
-    ui->pushButton->setText(controller->currentState());
-    ui->progressBar->setValue(controller->getPlayerHealth());
+    setup_game();
 }
 
 
 void CommandReader::on_right_clicked()
 {
     controller->makeMove(ui->tableWidget, 0, -1);
-    ui->pushButton->setText(controller->currentState());
-    ui->progressBar->setValue(controller->getPlayerHealth());
+    setup_game();
 }
-
 
 void CommandReader::on_tableWidget_itemSelectionChanged()
 {
     ui->progressBar->setValue(controller->getPlayerHealth());
 }
 
-void CommandReader::on_progressBar_valueChanged(int value)
+void CommandReader::setup_visual()
 {
-    if(ui->progressBar->value() == 0) {
-        ui->tableWidget->hide();
-        delete ui->tableWidget;
-        ui->pushButton->setText("over");
-        ui->lineEdit->setText("SUCK MY DICK FUCKINg LOSER, LIKE YOUR SWEET MOM");
-        const QPixmap pixmap("penis.png");
-        ui->label->setPixmap(pixmap);
-        ui->label->show();
-        ui->lineEdit->show();
-    }
+    ui->comboBox->hide();
+    ui->lineEdit->hide();
+    ui->label->hide();
 }
 
-void CommandReader::on_CellEvent_clicked()
+void CommandReader::setup_game()
 {
-    ui->comboBox->show();
-    ui->comboBox->setEnabled(true);
-    connect(ui->tableWidget, SIGNAL(cellClicked(int,int)), this, SLOT(createNewEventCell(int,int)));
-    ui->CellEvent->hide();
-    ui->tableWidget->setEnabled(true);
-}
-
-void CommandReader::createNewEventCell(int x, int y)
-{
-    controller->newEvent(ui->tableWidget, /*new EventAdd()*/new EventUnlock(), x, y);
-    disconnect(ui->tableWidget, SIGNAL(cellClicked(int,int)), this, SLOT(createNewEventCell(int,int)));
-    ui->CellEvent->show();
-}
-
-
-void CommandReader::on_pushButton_2_clicked()
-{
-
+    ui->pushButton->setText(controller->currentState());
+    ui->progressBar->setValue(controller->getPlayerHealth());
+    emit signal();
 }
 
