@@ -21,9 +21,10 @@ Field::Field(int height, int width):height(height), width(width)
         }
     }
     positionPlayer = Position(startX,startY);
+    positionWin = Position(0,0);
 }
 
-Field::Field(Field const &newField): positionPlayer(newField.positionPlayer),
+Field::Field(Field const &newField): positionPlayer(newField.positionPlayer),positionWin(newField.positionWin),
     height(newField.height), width(newField.width)
 {
     height = newField.height;
@@ -58,6 +59,7 @@ Field &Field::operator = (const Field &other)
             }
         }
         positionPlayer = other.positionPlayer;
+        positionWin = other.positionPlayer;
     }
     return *this;
 }
@@ -81,11 +83,12 @@ Field &Field::operator = (Field && other)
             }
         }
         positionPlayer = other.positionPlayer;
+        positionWin = other.positionPlayer;
     }
     return *this;
 }
 
-Field::Field(Field &&source): positionPlayer(source.positionPlayer),
+Field::Field(Field &&source): positionPlayer(source.positionPlayer), positionWin(source.positionWin),
    height(source.height), width(source.width)
 {
     cells = new Cell *[height];
@@ -155,6 +158,21 @@ Event *Field::getCurrentEvent()
 Event *Field::getEvent(int i, int j)
 {
     return cells[i][j].getEvent();
+}
+
+void Field::setPositionWin(int x, int y)
+{
+    positionWin = Position(x,y);
+}
+
+void Field::unlockWin()
+{
+    cells[positionWin.getX()][positionWin.getY()].setIsOpen(true);
+}
+
+void Field::unlockCell(int x, int y)
+{
+    cells[x][y].setIsOpen(true);
 }
 
 const Position &Field::getPositionPlayer() const

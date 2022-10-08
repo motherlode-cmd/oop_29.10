@@ -16,9 +16,12 @@ public:
     int getHealth() const;
     void setHealth(int newHealth);
     const Position &getCurrentPosition() const;
+    void getKey(){key = true;}
+    bool keyState(){return key;}
 private:
     Position currentPosition;
     int health = 100;
+    bool key = false;
 };
 
 #endif // PLAYER_H

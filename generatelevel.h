@@ -1,6 +1,7 @@
 #ifndef GENERATELEVEL_H
 #define GENERATELEVEL_H
 #include "eventadd.h"
+#include "eventkey.h"
 #include "eventlock.h"
 #include "eventnone.h"
 #include "eventunlock.h"
@@ -18,6 +19,7 @@ private:
     Event * eventAdd = new EventAdd;
     Event * eventNone = new EventNone;
     Event * eventWin = new EventWin;
+    Event * eventKey = new EventKey;
 };
 
 #endif // GENERATELEVEL_H

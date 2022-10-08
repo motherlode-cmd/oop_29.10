@@ -42,10 +42,15 @@ void Controller::exit(QTableWidget *table)
     field = Field(0,0);
     fieldView = FieldView(field, table);
 }
+//условия для выхода (найти ключ)
+//приверка на валидность уровня
 
 void Controller::checkState(QTableWidget *table)
 {
-    if(field.getHeight() == 0 && field.getWidth() == 0) {
+    if(player.keyState()) {
+        field.unlockWin();
+    }
+    if(field.getHeight() == 1 && field.getWidth() == 1 && player.keyState()) {
         exit(table);
         state = 2;
         level++;

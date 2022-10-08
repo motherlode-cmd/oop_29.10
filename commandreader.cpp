@@ -1,5 +1,4 @@
 #include "commandreader.h"
-#include "eventunlock.h"
 #include "mediator.h"
 #include "ui_commandreader.h"
 #include "QStandardItem"
@@ -37,11 +36,11 @@ void CommandReader::state()
     QPixmap pixmap;
     switch(controller->getState()){
     case 2:
-        pixmap = QPixmap("win.png");
+        pixmap = QPixmap("penisUp.png");
         ui->lineEdit->setText("you win");
         break;
     case 0:
-        pixmap = QPixmap("lose.png");
+        pixmap = QPixmap("penis.png");
         ui->lineEdit->setText("you lose");
         break;
     default:

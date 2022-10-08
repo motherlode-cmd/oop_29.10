@@ -1,5 +1,6 @@
 #include "cellview.h"
 #include "eventadd.h"
+#include "eventkey.h"
 #include "eventlock.h"
 #include "eventnone.h"
 #include "eventunlock.h"
@@ -49,11 +50,15 @@ void *CellView::setItem(int numType, bool isOpen, QTableWidgetItem *item)
         color = QColor(0, 150, 150);
         item->setText("winner");
         break;
+    case 15:
+        color = QColor(255, 255, 0);
+        item->setText("Key");
+        break;
     default:
         color = QColor(255,255,255);
         break;
     }
-    if(!isOpen) {
+    if(!isOpen && numType != 10) {
         color = QColor(1,1,1);
     }
     item->setBackground(color);
@@ -66,6 +71,7 @@ int CellView::getType(Event *event)
     if(event == dynamic_cast<EventLock *>(event)) return 3;
     if(event == dynamic_cast<EventUnlock *>(event)) return 4;
     if(event == dynamic_cast<EventWin *>(event)) return 10;
+    if(event == dynamic_cast<EventKey *>(event)) return 15;
     return -1;
 }
 

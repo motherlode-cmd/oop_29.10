@@ -13,6 +13,7 @@ SOURCES += \
     cellview.cpp \
     controller.cpp \
     eventadd.cpp \
+    eventkey.cpp \
     eventlock.cpp \
     eventnone.cpp \
     eventunlock.cpp \
@@ -34,6 +35,7 @@ HEADERS += \
     eventField.h \
     eventPlayer.h \
     eventadd.h \
+    eventkey.h \
     eventlock.h \
     eventnone.h \
     eventunlock.h \

@@ -19,6 +19,8 @@ public:
 
     Event *getEvent() const;
 
+    void setIsOpen(bool newIsOpen);
+
 private:
     Event * event = nullptr;
     Position position;

@@ -64,3 +64,8 @@ Event *Cell::getEvent() const
     return event;
 }
 
+void Cell::setIsOpen(bool newIsOpen)
+{
+    isOpen = newIsOpen;
+}
+

@@ -21,11 +21,15 @@ public:
     void setCell(int x, int y,const Cell & cell);
     Event * getCurrentEvent();
     Event * getEvent(int i, int j);
+    void setPositionWin(int x, int y);
+    void unlockWin();
+    void unlockCell(int x, int y);
 private:
 
 protected:
     Cell ** cells = nullptr;
     Position positionPlayer = Position(0,0);
+    Position positionWin = Position(1,1);
     int height = 3;
     int width = 3;
 private:

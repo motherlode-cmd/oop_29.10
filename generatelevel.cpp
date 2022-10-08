@@ -13,6 +13,7 @@ GenerateLevel::~GenerateLevel()
     delete eventLock;
     delete eventUnlock;
     delete eventWin;
+    delete eventKey;
 }
 
 void GenerateLevel::generateLevel(Field & field)
@@ -29,5 +30,11 @@ void GenerateLevel::generateLevel(Field & field)
         field.setNewEvent(eventUnlock, rand() % h, rand() % w);
         field.setNewEvent(eventLock, rand() % h, rand() % w);
     }
-    field.setNewEvent(eventWin, rand() % h, rand() % w);
+    int xWin = rand() % h;
+    int yWin = rand() % w;
+    field.setCell(xWin, yWin, Cell(eventWin, Position(xWin, yWin), false));
+    int xKey = rand() % h;
+    int yKey = rand() % w;
+    field.setCell(xKey, yKey, Cell(eventKey, Position(xKey, yKey), true));
+    field.setPositionWin(xWin, yWin);
 }

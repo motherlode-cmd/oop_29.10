@@ -2,13 +2,14 @@
 
 Player::Player(const Position & position):currentPosition(position), health(100){}
 
-Player::Player(Player const &newPlayer):currentPosition(newPlayer.currentPosition), health(newPlayer.health){}
+Player::Player(Player const &newPlayer):currentPosition(newPlayer.currentPosition), health(newPlayer.health), key(newPlayer.key){}
 
 Player &Player::operator = (const Player &other)
 {
     if(this != &other) {
         currentPosition = other.currentPosition;
         health = other.health;
+        key = other.key;
     }
     return *this;
 }
@@ -18,13 +19,14 @@ Player &Player::operator = (Player &&other)
     if(this != &other) {
         currentPosition = other.currentPosition;
         health = other.health;
+        key = other.key;
         other.health = 0;
         other.currentPosition = Position(-1,-1);
     }
     return *this;
 }
 
-Player::Player(Player &&source):currentPosition(source.currentPosition), health(source.health)
+Player::Player(Player &&source):currentPosition(source.currentPosition), health(source.health), key(source.key)
 {
     source.health = 0;
     source.currentPosition = Position(-1,-1);
