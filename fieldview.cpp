@@ -1,4 +1,5 @@
 #include "fieldview.h"
+#include "qheaderview.h"
 FieldView::FieldView(const Field & field, QTableWidget * table)
 {
     this->field = field;
@@ -6,6 +7,8 @@ FieldView::FieldView(const Field & field, QTableWidget * table)
     int m = field.getWidth();
     table->setColumnCount(m);
     table->setRowCount(n);
+    table->horizontalHeader()->setDefaultSectionSize(50);    // width
+    table->verticalHeader()->setDefaultSectionSize(50);
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < m; j++) {
             table->setItem(i,j,cellView.drowNewCell(field.getCell(i,j), field.getPositionPlayer()));

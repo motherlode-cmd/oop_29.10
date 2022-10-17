@@ -1,5 +1,7 @@
 #include "player.h"
-
+#include "message.h"
+#include <iostream>
+#include <QString>
 Player::Player(const Position & position):currentPosition(position), health(100){}
 
 Player::Player(Player const &newPlayer):currentPosition(newPlayer.currentPosition), health(newPlayer.health), key(newPlayer.key){}
@@ -54,3 +56,15 @@ const Position &Player::getCurrentPosition() const
     return currentPosition;
 }
 
+//Message Player::getMessage()
+//{
+//    std::string s("Player's health is " + QString::number(health).toStdString() + '\n');
+//    Message m(s);
+//    return m;
+//}
+
+std::ostream & operator<<(std::ostream & os, const Player & rhs)
+{
+    os <<"Player's Health after move: "<< rhs.getHealth() << " ";
+    return os;
+}

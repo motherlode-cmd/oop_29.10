@@ -8,3 +8,9 @@ void EventLock::newField(Field &field)
     field.setCell(x - 1, y - 1, Cell(this,Position(x - 1, y - 1), false));
     field.setCell(x, y + 1, Cell(this,Position(x + 1, y + 1), false));
 }
+
+//std::ostream& operator << (std::ostream & os, const EventLock & e) {
+//    //os << "Player locked somecells \n";
+//    e.print(os);
+//    return os;
+//}

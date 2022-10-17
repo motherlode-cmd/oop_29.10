@@ -11,7 +11,9 @@ CONFIG += c++17
 SOURCES += \
     cell.cpp \
     cellview.cpp \
+    consolelogger.cpp \
     controller.cpp \
+    dialog.cpp \
     eventadd.cpp \
     eventkey.cpp \
     eventlock.cpp \
@@ -20,17 +22,21 @@ SOURCES += \
     eventwin.cpp \
     field.cpp \
     fieldview.cpp \
+    filelogger.cpp \
     generatelevel.cpp \
     main.cpp \
     commandreader.cpp \
     player.cpp \
-    position.cpp
+    position.cpp \
+    tmplogger.cpp
 
 HEADERS += \
     cell.h \
     cellview.h \
     commandreader.h \
+    consolelogger.h \
     controller.h \
+    dialog.h \
     event.h \
     eventField.h \
     eventPlayer.h \
@@ -42,12 +48,16 @@ HEADERS += \
     eventwin.h \
     field.h \
     fieldview.h \
+    filelogger.h \
     generatelevel.h \
+    logger.h \
     player.h \
-    position.h
+    position.h \
+    tmplogger.h
 
 FORMS += \
-    commandreader.ui
+    commandreader.ui \
+    dialog.ui
 
 TRANSLATIONS += \
     Mediator_ru_RU.ts

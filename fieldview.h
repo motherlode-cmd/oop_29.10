@@ -3,8 +3,10 @@
 #include "cellview.h"
 #include "field.h"
 #include "qtablewidget.h"
-class FieldView
+#include <QMainWindow>
+class FieldView //: public QMainWindow
 {
+    //Q_OBJECT
 public:
     FieldView() = default;
     FieldView(const Field &field, QTableWidget * table);
@@ -18,6 +20,7 @@ public:
 private:
     Field field;
     CellView cellView;
+    //QTableView * table;
 };
 
 #endif // FIELDVIEW_H

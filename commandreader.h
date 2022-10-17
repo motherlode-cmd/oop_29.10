@@ -1,5 +1,6 @@
 #ifndef COMMANDREADER_H
 #define COMMANDREADER_H
+#include "consolelogger.h"
 #include "controller.h"
 #include "qbuttongroup.h"
 #include <QMainWindow>
@@ -33,10 +34,18 @@ private slots:
 
     void on_tableWidget_itemSelectionChanged();
 
+    void on_pushButton_logger_clicked();
+
+    void on_comboBox_set_logger_currentTextChanged(const QString &arg1);
+
 private:
+    void startLogger();
     void setup_visual();
     void setup_game();
     Ui::CommandReader *ui;
+    //Logger * logger = new FileLogger("../Mediator/default.txt");
+    //Logger * logger = new ConsoleLogger();
+    std::vector <Logger *> loggers;
     Controller * controller;
 };
 #endif // COMMANDREADER_H

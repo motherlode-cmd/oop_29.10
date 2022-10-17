@@ -9,3 +9,8 @@ void EventUnlock::newField(Field &field)
     //field.setCell(x, y - 1, Cell(this, Position(x, y - 1), true));
     field.unlockCell(x, y-1);
 }
+//std::ostream& operator << (std::ostream & os, const EventUnlock & e) {
+//    //os << "PLayer ublock \n";
+//    e.print(os);
+//    return os;
+//}

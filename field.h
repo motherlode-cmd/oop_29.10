@@ -10,6 +10,7 @@ public:
     Field & operator = (Field const &other);
     Field & operator = (Field && other);
     Field(Field && source);
+    friend std::ostream& operator << (std::ostream &, const Field &);
     ~Field();
     void setNewEvent(Event *event, int x, int y);
     void playerMove(int deltaX, int deltaY);
@@ -20,10 +21,10 @@ public:
     friend void newField(Field & field);
     void setCell(int x, int y,const Cell & cell);
     Event * getCurrentEvent();
-    Event * getEvent(int i, int j);
     void setPositionWin(int x, int y);
     void unlockWin();
     void unlockCell(int x, int y);
+//    Message getMessage();
 private:
 
 protected:

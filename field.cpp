@@ -1,7 +1,7 @@
 #include "field.h"
 #include <cstdlib>
 #include <iostream>
-
+#include <QString>
 Field::Field(int height, int width):height(height), width(width)
 {
     Event * eventDefault = nullptr;
@@ -112,6 +112,13 @@ Field::~Field()
     delete cells;
 }
 
+std::ostream & operator<<(std::ostream & os, const Field & rhs)
+{
+    os <<" PlayerPosition : ("<< rhs.getPositionPlayer().getX() + 1 <<"; " << rhs.getPositionPlayer().getY() + 1 << ") ";
+    return os;
+}
+
+
 void Field::setNewEvent(Event *event, int x, int y)
 {
     if(x >= 0 && y >= 0 && x < width && y < height)
@@ -155,11 +162,6 @@ Event *Field::getCurrentEvent()
     return cells[positionPlayer.getX()][positionPlayer.getY()].getEvent();
 }
 
-Event *Field::getEvent(int i, int j)
-{
-    return cells[i][j].getEvent();
-}
-
 void Field::setPositionWin(int x, int y)
 {
     positionWin = Position(x,y);
@@ -186,3 +188,4 @@ int Field::abs(int x, int deltaX, int metric)
     if(x + deltaX >= 0) return (x + deltaX) % metric;
     else return (metric + deltaX) % metric;
 }
+
