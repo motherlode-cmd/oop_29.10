@@ -1,0 +1,5 @@
+[ERROR]invalid size for field
+[ERROR]invalid size for field
+[ERROR]invalid size for field
+[ERROR]invalid size for field
+[INFO]Exit game
