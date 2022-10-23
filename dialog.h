@@ -1,10 +1,9 @@
 #ifndef DIALOG_H
 #define DIALOG_H
-
-#include "logger.h"
 #include "qabstractbutton.h"
 #include <QDialog>
-
+#include <set>
+#include "./Observer/Observer.h"
 namespace Ui {
 class Dialog;
 }
@@ -15,17 +14,20 @@ class Dialog : public QDialog
 
 public:
     explicit Dialog(QWidget *parent = nullptr);
-    void setLoggers(std::vector <Logger *> * vecloggers) {loggers = vecloggers;}
     ~Dialog();
+    void getObs(Observer * obs);
+
+    bool getIsCreate() const;
 
 private slots:
-    void on_comboBox_activated(int index);
-
     void on_buttonBox_clicked(QAbstractButton *button);
+
+    void on_comboBox_currentIndexChanged(int index);
 
 private:
     Ui::Dialog *ui;
-    std::vector <Logger *> * loggers;
+    Observer * obs;
+    bool isCreate = true;
 };
 
 #endif // DIALOG_H

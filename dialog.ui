@@ -40,31 +40,36 @@
    </property>
    <item>
     <property name="text">
-     <string>Создать новый FileLogger Без удаление старого</string>
+     <string>Добавить файл для записи</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Создать новый CL если такого нет</string>
+     <string>Добавить вывод в консоль</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Удалить последний логгер созданием нового консольного</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Удалить последний с созданием нового файлового</string>
+     <string>Удалить вывод в консоль</string>
     </property>
    </item>
   </widget>
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>160</y>
+     <x>130</x>
+     <y>120</y>
      <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox_2">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>160</y>
+     <width>111</width>
      <height>25</height>
     </rect>
    </property>

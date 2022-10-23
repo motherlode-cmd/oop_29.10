@@ -1,8 +1,5 @@
 #include "commandreader.h"
-#include "consolelogger.h"
 #include "dialog.h"
-#include "filelogger.h"
-#include "mediator.h"
 #include "ui_commandreader.h"
 #include "QStandardItem"
 #include "QFile"
@@ -13,14 +10,10 @@ CommandReader::CommandReader(Controller * controller, QWidget *parent)
     , ui(new Ui::CommandReader), controller(controller)
 {
     ui->setupUi(this);
-    Mediator * mediator = new Mediator();
-    delete mediator;
     this->controller = controller;
     setup_visual();
     connect(this, SIGNAL(signal()), this, SLOT(state()));
-    loggers.push_back(new ConsoleLogger);
-    loggers.push_back(new FileLogger("../Mediator/default.txt"));
-    loggers.push_back(new FileLogger("../Mediator/default2.txt"));
+    lockButtons(false);
 }
 
 CommandReader::~CommandReader()
@@ -30,14 +23,12 @@ CommandReader::~CommandReader()
 
 void CommandReader::on_pushButton_clicked()
 {
-    startLogger();
     setup_visual();
-    controller->start(ui->tableWidget, 5, 5, loggers);
+    controller->start(ui->tableWidget, ui->spinBox->value(), ui->spinBox_2->value()/*, loggers*/);
     ui->tableWidget->show();
     ui->progressBar->setValue(controller->getPlayerHealth());
     ui->pushButton->setText(controller->currentState());
-    //FileLogger fileLogger("new.txt");
-    //std::ofstream outfile("new.txt",std::ofstream::binary);
+    lockButtons(true);
 }
 
 void CommandReader::state()
@@ -45,18 +36,15 @@ void CommandReader::state()
     QPixmap pixmap;
     switch(controller->getState()) {
     case 2:
-        pixmap = QPixmap("penisUp.png");
         ui->lineEdit->setText("you win");
         break;
     case 0:
-        pixmap = QPixmap("penis.png");
         ui->lineEdit->setText("you lose");
         break;
     default:
         return;
     }
     ui->tableWidget->hide();
-    ui->label->setPixmap(pixmap.scaled(500,500));
     ui->label->show();
     ui->lineEdit->show();
     ui->pushButton->setText("start new level");
@@ -110,34 +98,61 @@ void CommandReader::setup_game()
 
 void CommandReader::on_pushButton_logger_clicked()
 {
-    for(auto logger : loggers) {
-        if(controller->getState() == 1)
-          controller->logging(logger);
-        else if(controller->getState() == 2)
-            logger->log("       WIN!\n");
-        else
-            logger->log("       LOSE\n");
-    }
-}
-
-
-void CommandReader::on_comboBox_set_logger_currentTextChanged(const QString &arg1)
-{
     Dialog dlg;
-    dlg.setLoggers(&loggers);
+    dlg.getObs(controller->getObserver());
     dlg.exec();
 }
 
-void CommandReader::startLogger()
+void CommandReader::lockButtons(bool l)
 {
-    for(auto logger : loggers) {
-        if(controller->getState() == 0) {
-            logger->log("\n-----STARTED NEW GAME--------\n");
-        } else if(controller->getState() == 1){
-            logger->log("\n-----RESTARTED LEVEL--------\n");
-        } else {
-            logger->log("\n-----STARTED NEW LEVEL--------\n");
-        }
-    }
+    ui->up->setEnabled(l);
+    ui->down->setEnabled(l);
+    ui->right->setEnabled(l);
+    ui->left->setEnabled(l);
+}
+
+
+
+//void CommandReader::on_comboBox_set_logger_Level_currentIndexChanged(int index)
+//{
+//    switch (index) {
+//    case 0:
+//        controller->setLevel(Level::Info);
+//        break;
+//    case 1:
+//        controller->setLevel(Level::State);
+//        break;
+//    case 2:
+//        controller->setLevel(Level::Error);
+//        break;
+//    }
+//}
+
+
+void CommandReader::on_checkBox_info_stateChanged(int arg1)
+{
+    if(arg1 == 0){
+        controller->deleteLevel(Level::Info);
+    } else
+        controller->addLevel(Level::Info);
+}
+
+
+void CommandReader::on_checkBox_state_stateChanged(int arg1)
+{
+    if(arg1 == 0){
+        controller->deleteLevel(Level::State);
+    } else
+        controller->addLevel(Level::State);
+
+}
+
+
+void CommandReader::on_checkBox_Error_stateChanged(int arg1)
+{
+    if(arg1 == 0){
+        controller->deleteLevel(Level::Error);
+    } else
+        controller->addLevel(Level::Error);
 }
 

@@ -1,34 +1,82 @@
 #include "dialog.h"
-#include "filelogger.h"
 #include "ui_dialog.h"
-
+#include "Logger/Logger.h"
+#include "Logger/consolelogger.h"
+#include "Logger/filelogger.h"
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent), ui(new Ui::Dialog)
 {
     ui->setupUi(this);
+    //ui->lineEdit->hide();
+    //ui->lineEdit->setEnabled(false);
+    ui->comboBox_2->hide();
 }
 
 Dialog::~Dialog()
 {
-    loggers = nullptr;
+    obs = nullptr;
     delete ui;
 }
 
-void Dialog::on_comboBox_activated(int index)
+void Dialog::getObs(Observer * obs)
 {
-    switch (index) {
+    if(obs != nullptr)
+        this->obs = obs;
+}
+
+void Dialog::on_buttonBox_clicked(QAbstractButton * button)
+{
+    Logger * logger;
+    switch (ui->comboBox->currentIndex()) {
     case 0:
-        loggers->push_back(new FileLogger(ui->lineEdit->text().toStdString() + ".txt"));
+        if(obs != nullptr){
+            logger = new FileLogger(("../Mediator/" + ui->lineEdit->text() + ".txt").toStdString());
+            obs->addLogger(logger);
+        }
         break;
-    default:
-        loggers->push_back(new FileLogger("./Mediator/" + ui->lineEdit->text().toStdString() + ".txt"));
+    case 1:
+        if(obs != nullptr){
+            logger = new ConsoleLogger();
+            obs->addLogger(logger);
+        }
+        break;
+    case 2:
+        if(obs != nullptr){
+            logger = new ConsoleLogger();
+            obs->deleteLogger(logger);
+        }
         break;
     }
 }
 
-
-void Dialog::on_buttonBox_clicked(QAbstractButton *button)
+void Dialog::on_comboBox_currentIndexChanged(int index)
 {
-    //loggers->push_back(new FileLogger(ui->lineEdit->text().toStdString() + ".txt"));
+    switch (index) {
+    case 0:
+        ui->lineEdit->show();
+        ui->lineEdit->setEnabled(true);
+        ui->comboBox_2->show();
+        isCreate = true;
+        break;
+    case 1:
+        ui->lineEdit->hide();
+        ui->lineEdit->setEnabled(false);
+        ui->comboBox_2->hide();
+        isCreate = true;
+        break;
+    case 2:
+        ui->lineEdit->hide();
+        ui->lineEdit->setEnabled(false);
+        ui->comboBox_2->hide();
+        isCreate = false;
+        break;
+    }
 }
+
+bool Dialog::getIsCreate() const
+{
+    return isCreate;
+}
+
+
 

@@ -9,51 +9,56 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    cell.cpp \
-    cellview.cpp \
-    consolelogger.cpp \
-    controller.cpp \
+    Events/EventPlayer/eventkey.cpp \
+    Events/EventField/eventlock.cpp \
+    Events/EventField/eventunlock.cpp \
+    Events/EventField/eventwin.cpp \
+    Events/EventPlayer/eventadd.cpp \
+    Events/EventPlayer/eventnone.cpp \
+    GameLogic/cell.cpp \
+    GameLogic/controller.cpp \
+    GameLogic/field.cpp \
+    GameLogic/generatelevel.cpp \
+    GameLogic/player.cpp \
+    GameLogic/position.cpp \
+    Logger/consolelogger.cpp \
+    Logger/filelogger.cpp \
+    Observable/gamesubject.cpp \
+    Observer/loggerobserver.cpp \
+    Views/cellview.cpp \
+    Views/fieldview.cpp \
     dialog.cpp \
-    eventadd.cpp \
-    eventkey.cpp \
-    eventlock.cpp \
-    eventnone.cpp \
-    eventunlock.cpp \
-    eventwin.cpp \
-    field.cpp \
-    fieldview.cpp \
-    filelogger.cpp \
-    generatelevel.cpp \
     main.cpp \
-    commandreader.cpp \
-    player.cpp \
-    position.cpp \
-    tmplogger.cpp
+    commandreader.cpp
 
 HEADERS += \
-    cell.h \
-    cellview.h \
+    Events/EventField/eventField.h \
+    Events/EventPlayer/eventkey.h \
+    Events/EventField/eventlock.h \
+    Events/EventField/eventunlock.h \
+    Events/EventField/eventwin.h \
+    Events/EventPlayer/eventPlayer.h \
+    Events/EventPlayer/eventadd.h \
+    Events/EventPlayer/eventnone.h \
+    Events/event.h \
+    GameLogic/cell.h \
+    GameLogic/controller.h \
+    GameLogic/field.h \
+    GameLogic/generatelevel.h \
+    GameLogic/player.h \
+    GameLogic/position.h \
+    Logger/Level.h \
+    Logger/Logger.h \
+    Logger/consolelogger.h \
+    Logger/filelogger.h \
+    Observable/Observable.h \
+    Observable/gamesubject.h \
+    Observer/Observer.h \
+    Observer/loggerobserver.h \
+    Views/cellview.h \
+    Views/fieldview.h \
     commandreader.h \
-    consolelogger.h \
-    controller.h \
-    dialog.h \
-    event.h \
-    eventField.h \
-    eventPlayer.h \
-    eventadd.h \
-    eventkey.h \
-    eventlock.h \
-    eventnone.h \
-    eventunlock.h \
-    eventwin.h \
-    field.h \
-    fieldview.h \
-    filelogger.h \
-    generatelevel.h \
-    logger.h \
-    player.h \
-    position.h \
-    tmplogger.h
+    dialog.h
 
 FORMS += \
     commandreader.ui \
