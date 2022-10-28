@@ -1,5 +1,9 @@
 [ERROR]invalid size for field
-[ERROR]invalid size for field
-[ERROR]invalid size for field
-[ERROR]invalid size for field
+[INFO]Started new game
+[INFO]Player's new position (4 ; 3)
+[STATE CHANGE]OOOOPS -10 HP
+[STATE CHANGE]New player's health 90
+[INFO]Player's new position (4 ; 2)
+[STATE CHANGE]OOOOPS -10 HP
+[STATE CHANGE]New player's health 80
 [INFO]Exit game

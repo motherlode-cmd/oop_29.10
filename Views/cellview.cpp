@@ -26,7 +26,7 @@ void CellView::drowCell(QTableWidgetItem *item, const Cell &cell, const Position
     }
 }
 
-void *CellView::setItem(int numType, bool isOpen, QTableWidgetItem *item)
+void CellView::setItem(int numType, bool isOpen, QTableWidgetItem *item)
 {
     QColor color = QColor(1,1,1);
     switch (numType) {

@@ -19,7 +19,7 @@ Controller::Controller()
 
 Controller::~Controller()
 {
-    field.notify(Level::Info,"Exit game");
+    obs->update(Level::Info,"Exit game");
     delete obs;
 }
 
@@ -29,11 +29,11 @@ void Controller::start(QTableWidget * table, int n, int m)
     state = 1;
     field = Field(n + level, m + level);
     if(n > 0 && m > 0){
-        field.notify(Level::Info,"Started new game");
-        player = Player(field.getPositionPlayer());
+        obs->update(Level::Info,"Started new game");
+        player = HumanPlayer(field.getPositionPlayer());
         nextLevel(table);
     } else {
-        field.notify(Level::Error,"invalid size for field");
+        obs->update(Level::Error,"invalid size for field");
     }
 }
 
@@ -53,7 +53,7 @@ void Controller::makeMove(QTableWidget * table, int x, int y)
             throw(field.getHeight());
         }
     } catch(int a) {
-        field.notify(Level::Error, "Invalid Game, can't move");
+        obs->update(Level::Error, "Invalid Game, can't move");
     }
 }
 
@@ -72,9 +72,6 @@ int Controller::getState() const
     return state;
 }
 
-//условия для выхода (найти ключ)
-//приверка на валидность уровня
-
 void Controller::checkState()
 {
     if(player.keyState()) {
@@ -83,10 +80,12 @@ void Controller::checkState()
     if(field.isWin()) {
         state = 2;
         level++;
+        started = false;
     }
     if(player.getHealth() == 0){
         state = 0;
         level = 0;
+        started = 0;
     }
 }
 

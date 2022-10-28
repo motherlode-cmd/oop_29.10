@@ -19,7 +19,7 @@ SOURCES += \
     GameLogic/controller.cpp \
     GameLogic/field.cpp \
     GameLogic/generatelevel.cpp \
-    GameLogic/player.cpp \
+    GameLogic/humanPlayer.cpp \
     GameLogic/position.cpp \
     Logger/consolelogger.cpp \
     Logger/filelogger.cpp \
@@ -29,7 +29,8 @@ SOURCES += \
     Views/fieldview.cpp \
     dialog.cpp \
     main.cpp \
-    commandreader.cpp
+    commandreader.cpp \
+    mediator.cpp
 
 HEADERS += \
     Events/EventField/eventField.h \
@@ -41,16 +42,18 @@ HEADERS += \
     Events/EventPlayer/eventadd.h \
     Events/EventPlayer/eventnone.h \
     Events/event.h \
+    GameLogic/Player.h \
     GameLogic/cell.h \
     GameLogic/controller.h \
     GameLogic/field.h \
     GameLogic/generatelevel.h \
-    GameLogic/player.h \
+    GameLogic/humanPlayer.h \
     GameLogic/position.h \
     Logger/Level.h \
     Logger/Logger.h \
     Logger/consolelogger.h \
     Logger/filelogger.h \
+    MediatorInterface.h \
     Observable/Observable.h \
     Observable/gamesubject.h \
     Observer/Observer.h \
@@ -58,7 +61,8 @@ HEADERS += \
     Views/cellview.h \
     Views/fieldview.h \
     commandreader.h \
-    dialog.h
+    dialog.h \
+    mediator.h
 
 FORMS += \
     commandreader.ui \

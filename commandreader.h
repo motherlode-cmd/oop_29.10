@@ -1,6 +1,6 @@
 #ifndef COMMANDREADER_H
 #define COMMANDREADER_H
-#include "./GameLogic/controller.h"
+#include "MediatorInterface.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -12,12 +12,15 @@ class CommandReader : public QMainWindow
     Q_OBJECT
 
 public:
-    CommandReader(Controller * controller = nullptr, QWidget *parent = nullptr);
+    CommandReader(QWidget *parent = nullptr);
     ~CommandReader();
+    void addMediator(MediatorInterface * m);
+    QTableWidget * get_table();
 signals:
     void signal();
+public slots:
+    void keyPressEvent(QKeyEvent * e);
 
-private slots:
     void on_pushButton_clicked();
 
     void state();
@@ -41,15 +44,20 @@ private slots:
 
     void on_checkBox_Error_stateChanged(int arg1);
 
+    void setup_game();
 private:
     void lockButtons(bool l);
     void setup_visual();
-    void setup_game();
     Ui::CommandReader *ui;
-    //Logger * logger = new FileLogger("../Mediator/default.txt");
-    //Logger * logger = new ConsoleLogger();
-    //std::vector <Logger *> loggers;
-    //FileLogger fileLogger("new.txt");
-    Controller * controller;
+    MediatorInterface * mediator = nullptr;
 };
+
+inline void CommandReader::keyPressEvent(QKeyEvent *e)
+{
+    try{
+        mediator->keyPressEvent(e);
+    } catch(...) {
+
+    }
+}
 #endif // COMMANDREADER_H

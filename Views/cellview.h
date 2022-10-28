@@ -9,7 +9,7 @@ public:
     QTableWidgetItem * drowNewCell(const Cell & cell, const Position & playerPosition);
     void drowCell(QTableWidgetItem * item, const Cell & cell, const Position & playerPosition);
 private:
-    void * setItem(int numType, bool isOpen, QTableWidgetItem * item);
+    void setItem(int numType, bool isOpen, QTableWidgetItem * item);
     int getType(Event * event);
 };
 

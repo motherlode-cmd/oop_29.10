@@ -2,7 +2,7 @@
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
-
+#include "mediator.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -17,9 +17,10 @@ int main(int argc, char *argv[])
         }
     }
     Controller c;
-   // while(c.getState() == 1){
-        CommandReader w(&c);
-        w.show();
-   // }
+    CommandReader w;
+    Mediator m(&c, &w);
+    w.addMediator(&m);
+    //w.show();
     return a.exec();
 }
+

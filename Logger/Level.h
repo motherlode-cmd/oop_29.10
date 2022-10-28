@@ -7,8 +7,8 @@ enum Level
     Info,
     State,
     Error
-
 };
+
 inline std::ostream& operator << (std::ostream& out, Level& level)
 {
     switch(level)

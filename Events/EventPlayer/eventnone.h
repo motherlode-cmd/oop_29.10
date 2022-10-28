@@ -8,7 +8,7 @@ public:
     EventNone(){}
     ~EventNone(){}
 //    friend std::ostream& operator << (std::ostream &, EventNone *);
-    void makeAction(Player & player) override;
+    void makeAction(HumanPlayer & player) override;
     std::string print() const override {return "OOOOPS -10 HP";}
 };
 

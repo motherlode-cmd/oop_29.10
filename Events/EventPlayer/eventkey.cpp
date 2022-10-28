@@ -1,6 +1,6 @@
 #include "eventkey.h"
 
-void EventKey::makeAction(Player &player)
+void EventKey::makeAction(HumanPlayer &player)
 {
     notify(Level::State, print());
     player.gotKey();

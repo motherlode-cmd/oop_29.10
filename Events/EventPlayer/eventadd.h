@@ -7,7 +7,7 @@ class EventAdd : public EventPlayer
 public:
     EventAdd(){}
     ~EventAdd(){}
-    void makeAction(Player & player) override;
+    void makeAction(HumanPlayer & player) override;
     std::string print() const override {return "OOO + 10 HP";}
 };
 

@@ -1,11 +1,11 @@
-#include "player.h"
+#include "humanPlayer.h"
 #include <iostream>
 #include <QString>
-Player::Player(const Position & position):currentPosition(position), health(100){}
+HumanPlayer::HumanPlayer(const Position & position):currentPosition(position), health(100){}
 
-Player::Player(Player const &newPlayer):currentPosition(newPlayer.currentPosition), health(newPlayer.health), key(newPlayer.key){}
+HumanPlayer::HumanPlayer(HumanPlayer const &newPlayer):currentPosition(newPlayer.currentPosition), health(newPlayer.health), key(newPlayer.key){}
 
-Player &Player::operator = (const Player &other)
+HumanPlayer &HumanPlayer::operator = (const HumanPlayer &other)
 {
     if(this != &other) {
         currentPosition = other.currentPosition;
@@ -15,7 +15,7 @@ Player &Player::operator = (const Player &other)
     return *this;
 }
 
-Player &Player::operator = (Player &&other)
+HumanPlayer &HumanPlayer::operator = (HumanPlayer &&other)
 {
     if(this != &other) {
         currentPosition = other.currentPosition;
@@ -26,12 +26,12 @@ Player &Player::operator = (Player &&other)
     return *this;
 }
 
-Player::Player(Player &&source):currentPosition(source.currentPosition), health(source.health), key(source.key)
+HumanPlayer::HumanPlayer(HumanPlayer &&source):currentPosition(source.currentPosition), health(source.health), key(source.key)
 {
     source.health = 0;
 }
 
-void Player::makeMove(const Position & newPosition)
+void HumanPlayer::makeMove(const Position & newPosition)
 {
     try {
         if(currentPosition.getX() >= 0 && currentPosition.getY() >= 0)
@@ -45,12 +45,12 @@ void Player::makeMove(const Position & newPosition)
 //сделать возможность выбора уровня логгирования
 //сделать проверку на количество логгеров
 
-int Player::getHealth() const
+int HumanPlayer::getHealth() const
 {
     return health;
 }
 
-void Player::setHealth(int newHealth)
+void HumanPlayer::setHealth(int newHealth)
 {
     if(health != newHealth) {
         notify(Level::State, "New player's health " + std::to_string(newHealth));
@@ -63,12 +63,12 @@ void Player::setHealth(int newHealth)
     }
 }
 
-const Position &Player::getCurrentPosition() const
+const Position &HumanPlayer::getCurrentPosition() const
 {
     return currentPosition;
 }
 
-std::ostream & operator<<(std::ostream & os, const Player & rhs)
+std::ostream & operator<<(std::ostream & os, const HumanPlayer & rhs)
 {
     os <<"Player's Health after move: "<< rhs.getHealth() << " ";
     return os;

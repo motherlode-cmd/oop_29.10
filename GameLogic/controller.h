@@ -2,7 +2,7 @@
 #define CONTROLLER_H
 #include "../Views/fieldview.h"
 #include "generatelevel.h"
-#include "player.h"
+#include "humanPlayer.h"
 #include <QObject>
 
 class Controller
@@ -26,7 +26,7 @@ private:
     void checkState();
     void nextLevel(QTableWidget *table);
     FieldView fieldView;
-    Player player;
+    HumanPlayer player;
     Field field;
     int state = 1;
     int level = 0;
